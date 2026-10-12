@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>CYBER_HUD // START</title>
+  <style>
+    :root {
+      --bg: #07070a;
+      --card-bg: #111118;
+      --cyan: #00f3ff;
+      --magenta: #ff0055;
+      --yellow: #fcee0a;
+      --text: #e0e6ed;
+      --muted: #5c6370;
+      --glow: rgba(0, 243, 255, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem 1rem;
+      justify-content: space-between;
+      overflow-x: hidden;
+    }
+
+    /* Ambient CRT Background Grid */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+      background-size: 20px 20px;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    header {
+      margin-bottom: 1.5rem;
+      border-left: 3px solid var(--cyan);
+      padding-left: 0.75rem;
+    }
+
+    .status-bar {
+      font-size: 0.65rem;
+      color: var(--cyan);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+
+    #clock {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 0 12px var(--cyan);
+    }
+
+    #date {
+      font-size: 0.8rem;
+      color: var(--yellow);
+      margin-top: 0.2rem;
+      letter-spacing: 1px;
+    }
+
+    /* Search Input */
+    .search-box {
+      margin-bottom: 1.5rem;
+    }
+
+    .search-box input {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--cyan);
+      padding: 0.9rem 1rem;
+      border-radius: 6px;
+      color: var(--text);
+      font-size: 0.95rem;
+      outline: none;
+      box-shadow: 0 0 12px var(--glow);
+    }
+
+    .search-box input:focus {
+      border-color: var(--magenta);
+      box-shadow: 0 0 15px rgba(255, 0, 85, 0.3);
+    }
+
+    /* Shortcuts Grid */
+    .section-title {
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 1.5px;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid rgba(0, 243, 255, 0.15);
+      border-radius: 6px;
+      padding: 1rem 0.8rem;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; width: 3px; height: 100%;
+      background: var(--cyan);
+    }
+
+    .card:active {
+      transform: scale(0.97);
+      border-color: var(--magenta);
+    }
+
+    .card-icon {
+      font-size: 1.1rem;
+      color: var(--cyan);
+    }
+
+    .card-title {
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+
+    .card-tag {
+      font-size: 0.6rem;
+      color: var(--muted);
+    }
+
+    footer {
+      font-size: 0.65rem;
+      color: var(--muted);
+      text-align: center;
+      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      padding-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div>
+    <header>
+      <div class="status-bar">// SYS_STATUS: ONLINE</div>
+      <div id="clock">00:00:00</div>
+      <div id="date">LOADING...</div>
+    </header>
+
+    <div class="search-box">
+      <form action="https://www.google.com/search" method="get">
+        <input type="text" name="q" placeholder="> EXECUTE SEARCH..." autocomplete="off" required>
+      </form>
+    </div>
+
+    <div class="section-title">// QUICK_ACCESS</div>
+    <div class="grid">
+      <a href="https://youtube.com" class="card">
+        <span class="card-icon">▶</span>
+        <div>
+          <div class="card-title">YouTube</div>
+          <div class="card-tag">MEDIA_NET</div>
+        </div>
+      </a>
+      <a href="https://reddit.com" class="card">
+        <span class="card-icon">⚡</span>
+        <div>
+          <div class="card-title">Reddit</div>
+          <div class="card-tag">GLOBAL_FEED</div>
+        </div>
+      </a>
+      <a href="https://github.com" class="card">
+        <span class="card-icon">⚙</span>
+        <div>
+          <div class="card-title">GitHub</div>
+          <div class="card-tag">CODE_REPO</div>
+        </div>
+      </a>
+      <a href="https://chatgpt.com" class="card">
+        <span class="card-icon">◈</span>
+        <div>
+          <div class="card-title">AI Terminal</div>
+          <div class="card-tag">NEURAL_LINK</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    [SYS_READY] • PORTRAIT_V1.0
+  </footer>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+
+      const options = { weekday: 'short', month: 'short', day: 'numeric' };
+      document.getElementById('date').textContent = now.toLocaleDateString('en-US', options).toUpperCase();
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+</body>
+</html>
